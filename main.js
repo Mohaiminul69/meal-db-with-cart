@@ -45,9 +45,12 @@ const displayMealDetails = (meal) => {
                       <div class="d-flex justify-content-between align-items-center mb-2">
                           <p class="card-text my-auto"><strong>Origin:</strong> ${meal.strArea}</p>
                       </div>
-                      <p class="card-text"><strong>Instruction:</strong> ${meal.strInstructions}</p>                        
-                      <a href="${meal.strSource}" class="text-decoration-none"><button class="btn btn-success me-2">Read Blog</button></a>                       
-                      <a href="${meal.strYoutube}" class="text-decoration-none"><button class="btn btn-success">Watch Video Tutorial</button></a>                       
+                      <p class="card-text"><strong>Instruction:</strong> ${meal.strInstructions}</p>
+                      <div class="d-flex">
+                      <a href="${meal.strSource}" class="text-decoration-none"><button class="btn btn-success d-flex align-items-center me-2">Read Blog <i class="ms-2 fas fa-link text-white fs-5"></i></button></a>                       
+                      <a href="${meal.strYoutube}" class="text-decoration-none"><button class="btn btn-success d-flex align-items-center">Watch Video Tutorial <i class="ms-2 fab fa-youtube text-white fs-5"></i
+                      ></button></a>                       
+                      </div>
                   </div>
               </div>
           </div>
