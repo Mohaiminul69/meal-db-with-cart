@@ -22,6 +22,8 @@ const getDetails = (mealId) => {
 };
 
 const getInstruction = (text) => `${text.split(" ").slice(0, 10).join(" ")}...`;
+const isAlreadyAdded = (mealId) =>
+  cartItems.some((item) => item.mealId === mealId);
 
 const displayMealDetails = (meal) => {
   const mealDetails = document.getElementById("modal-body");
@@ -92,10 +94,16 @@ const displayMeals = (meals) => {
                     )}</p>
                     <span class="badge bg-dark">${meal.strCategory}</span>
                     <div class="mt-2 w-100 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-success btn-sm" onclick="addToCart('${
-                      meal.strMeal
-                    }', '${meal.strMealThumb}')">
-                      Add to Cart
+                    <button id="${meal.idMeal}" class="btn btn-${
+      isAlreadyAdded(meal.idMeal) ? "danger" : "success"
+    } btn-sm" onclick="addToCart('${meal.strMeal}', '${meal.strMealThumb}','${
+      meal.idMeal
+    }')">
+                      ${
+                        isAlreadyAdded(meal.idMeal)
+                          ? "Already Added"
+                          : "Add to Cart"
+                      }
                     </button>
                     <button data-bs-toggle="modal"
             data-bs-target="#exampleModal" class="btn btn-success btn-sm" onclick="getDetails(${
@@ -117,9 +125,15 @@ const createElement = (tag, className = "", innerHTML = "") => {
   return element;
 };
 
-const addToCart = (name, image) => {
-  if (cartItems.length === 11) return;
-  cartItems.push({ name, image });
+const addToCart = (name, image, mealId) => {
+  if (
+    cartItems.length === 11 ||
+    cartItems.some((item) => item.mealId === mealId)
+  ) {
+    return;
+  }
+
+  cartItems.push({ mealId, name, image });
   if (cartItems.length === 0) return;
 
   const cartContainer = document.getElementById("cart");
@@ -150,4 +164,7 @@ const addToCart = (name, image) => {
 
   cartHeader.appendChild(cartBody);
   cartContainer.appendChild(cartHeader);
+  document.getElementById(`${mealId}`).innerText = "Already Added";
+  document.getElementById(`${mealId}`).classList.remove("btn-success");
+  document.getElementById(`${mealId}`).classList.add("btn-danger");
 };
