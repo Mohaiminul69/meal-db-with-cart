@@ -126,10 +126,13 @@ const createElement = (tag, className = "", innerHTML = "") => {
 };
 
 const addToCart = (name, image, mealId) => {
-  if (
-    cartItems.length === 11 ||
-    cartItems.some((item) => item.mealId === mealId)
-  ) {
+  if (cartItems.length === 11) {
+    alert("You have reached the max limit of your cart");
+    return;
+  }
+
+  if (isAlreadyAdded(mealId)) {
+    alert("This item has already been selected");
     return;
   }
 
