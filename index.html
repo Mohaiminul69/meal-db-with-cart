@@ -32,31 +32,7 @@
         <div class="col-9">
           <div id="container" class="row row-cols-1 row-cols-md-3 g-3"></div>
         </div>
-        <div id="cart" class="col-3">
-          <div class="card">
-            <div id="cart" class="card-body">
-              <h1 className="mb-2 text-danger">Your Cart</h1>
-              <hr />
-              <h5>
-                Meals Added:
-                <span className="text-danger">{teamMember.length}</span>
-              </h5>
-              <h5 className="mb-4">
-                Total Cost:{" "}
-                <span className="text-danger">{totalCost.toFixed(1)} M</span>
-                points
-              </h5>
-              <hr />
-              <h4 className="text-danger">Team Members List:</h4>
-              {teamMember.map((member) => (
-              <h5 key="{member.key}" className="added-members">
-                {teamMember.indexOf(member) + 1}#
-                <img src="{member.img}" alt="" />{" "} {member.name}
-              </h5>
-              ))}
-            </div>
-          </div>
-        </div>
+        <div id="cart" class="col-3"></div>
       </div>
 
       <!-- Modal -->

@@ -92,9 +92,11 @@ const displayMeals = (meals) => {
                     )}</p>
                     <span class="badge bg-dark">${meal.strCategory}</span>
                     <div class="mt-2 w-100 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-success btn-sm" onclick="addToCart(${
-                      (meal.strMealThumb, meal.strMeal)
-                    })">Add to Cart</button>
+                    <button class="btn btn-success btn-sm" onclick="addToCart('${
+                      meal.strMeal
+                    }', '${meal.strMealThumb}')">
+                      Add to Cart
+                    </button>
                     <button data-bs-toggle="modal"
             data-bs-target="#exampleModal" class="btn btn-success btn-sm" onclick="getDetails(${
               meal.idMeal
@@ -108,39 +110,44 @@ const displayMeals = (meals) => {
   });
 };
 
-const addToCart = (image, name) => {
+const createElement = (tag, className = "", innerHTML = "") => {
+  const element = document.createElement(tag);
+  element.className = className;
+  element.innerHTML = innerHTML;
+  return element;
+};
+
+const addToCart = (name, image) => {
+  if (cartItems.length === 11) return;
   cartItems.push({ name, image });
   if (cartItems.length === 0) return;
 
   const cartContainer = document.getElementById("cart");
   cartContainer.innerHTML = "";
 
-  div = document.createElement("div");
-  div.innerHTML = `
-            <div class="card">
-            <div id="cart" class="card-body">
-              <h1 className="mb-2 text-danger">Your Cart</h1>
-              <hr />
-              <h5>
-                Meals Added:
-                <span className="text-danger">{teamMember.length}</span>
-              </h5>
-              <h5 className="mb-4">
-                Total Cost:{" "}
-                <span className="text-danger">{totalCost.toFixed(1)} M</span>
-                points
-              </h5>
-              <hr />
-              <h4 className="text-danger">Team Members List:</h4>
-              {teamMember.map((member) => (
-              <h5 key="{member.key}" className="added-members">
-                {teamMember.indexOf(member) + 1}#
-                <img src="{member.img}" alt="" />{" "} {member.name}
-              </h5>
-              ))}
-            </div>
-          </div>
-        `;
+  const cartHeader = createElement("div", "card");
+  const cartBody = createElement(
+    "div",
+    "card-body",
+    `
+      <h2>Your Cart</h2>
+      <hr />
+      <h5>Meals Added: ${cartItems.length}</h5>
+      <hr />
+      <h5>Meals List:</h5>
+    `
+  );
 
-  cartContainer.appendChild(div);
+  cartItems.forEach((item, idx) => {
+    div = document.createElement("div");
+    div.innerHTML = `
+    <h5>${idx + 1}) <img class="cart-img" src="${item.image}"/> ${
+      item.name
+    }</h5>
+    `;
+    cartBody.appendChild(div);
+  });
+
+  cartHeader.appendChild(cartBody);
+  cartContainer.appendChild(cartHeader);
 };
