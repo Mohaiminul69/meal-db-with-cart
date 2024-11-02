@@ -141,9 +141,9 @@ const addToCart = (name, image) => {
   cartItems.forEach((item, idx) => {
     div = document.createElement("div");
     div.innerHTML = `
-    <h5>${idx + 1}) <img class="cart-img" src="${item.image}"/> ${
+    <h6>${idx + 1}) <img class="cart-img" src="${item.image}"/> ${
       item.name
-    }</h5>
+    }</h6>
     `;
     cartBody.appendChild(div);
   });
