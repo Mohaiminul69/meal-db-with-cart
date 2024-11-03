@@ -96,7 +96,17 @@ const displayMeals = (meals) => {
                     <p class="card-text"><strong>Instruction:</strong> ${getInstruction(
                       meal.strInstructions
                     )}</p>
-                    <span class="badge bg-dark">${meal.strCategory}</span>
+                    <div class="d-flex g-4 align-items-center">
+                      <span class="badge bg-dark">${meal.strCategory}</span>
+                      <a href="${
+                        meal.strSource
+                      }" class="text-decoration-none d-flex align-items-center">
+                      <i class="ms-2 fas fa-link text-danger fs-5"></i></a>
+                        <a href="${
+                          meal.strYoutube
+                        }" class="text-decoration-none d-flex align-items-center">
+                        <i class="ms-2 fab fa-youtube text-danger fs-5"></i></a>
+                    </div>
                     <div class="mt-2 w-100 d-flex justify-content-between align-items-center">
                     <button id="${meal.idMeal}" class="btn btn-${
       isAlreadyAdded(meal.idMeal) ? "danger" : "success"
