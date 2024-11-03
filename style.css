@@ -20,6 +20,10 @@ body::after {
   z-index: -1;
 }
 
+.bg-black {
+  background: rgba(0, 0, 0, 0.9);
+}
+
 .wrapper {
   min-height: 100vh;
   max-height: 100%;
