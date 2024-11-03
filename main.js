@@ -1,6 +1,7 @@
 const input = document.getElementById("searchInput");
 const button = document.getElementById("searchButton");
 const cartItems = [];
+const categories = {};
 
 input.addEventListener("keypress", (e) => e.key === "Enter" && searchFood());
 button.addEventListener("click", () => searchFood());
@@ -100,8 +101,8 @@ const displayMeals = (meals) => {
                     <button id="${meal.idMeal}" class="btn btn-${
       isAlreadyAdded(meal.idMeal) ? "danger" : "success"
     } btn-sm" onclick="addToCart('${meal.strMeal}', '${meal.strMealThumb}','${
-      meal.idMeal
-    }')">
+      meal.strCategory
+    }','${meal.idMeal}')">
                       ${
                         isAlreadyAdded(meal.idMeal)
                           ? "Already Added"
@@ -128,7 +129,7 @@ const createElement = (tag, className = "", innerHTML = "") => {
   return element;
 };
 
-const addToCart = (name, image, mealId) => {
+const addToCart = (name, image, category, mealId) => {
   if (cartItems.length === 11) {
     alert("You have reached the max limit of your cart");
     return;
@@ -140,6 +141,10 @@ const addToCart = (name, image, mealId) => {
   }
 
   cartItems.push({ mealId, name, image });
+  categories[`${category}`]
+    ? (categories[`${category}`] += 1)
+    : (categories[`${category}`] = 1);
+
   if (cartItems.length === 0) return;
 
   const cartContainer = document.getElementById("cart");
@@ -153,6 +158,11 @@ const addToCart = (name, image, mealId) => {
       <h2>Your Cart</h2>
       <hr />
       <h5>Meals Added: ${cartItems.length}</h5>
+      <hr />
+      <h5>Categories:</h5>
+      ${Object.entries(categories)
+        .map(([key, value]) => `<p class="mb-0">${key}: ${value}</p>`)
+        .join("")}
       <hr />
       <h5>Meals List:</h5>
     `
